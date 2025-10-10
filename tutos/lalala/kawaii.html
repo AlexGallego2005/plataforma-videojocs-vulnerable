@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌈✨ KAWAII WONDERLAND ✨🌈</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka+One:wght@400&family=Bubblegum+Sans:wght@400&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Bubblegum Sans', cursive;
+            background: linear-gradient(45deg, #ff9a9e, #fecfef, #fecfef, #ffd89b, #b4f8c8, #a8edea, #fed6e3, #d299c2);
+            background-size: 800% 800%;
+            animation: rainbow-bg 3s ease infinite;
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* Floating hearts and stars */
+        .floating-emoji {
+            position: fixed;
+            font-size: 2em;
+            animation: float 6s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .floating-emoji:nth-child(odd) {
+            animation-direction: reverse;
+        }
+
+        /* Rainbow animated background */
+        @keyframes rainbow-bg {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-30px) rotate(120deg); }
+            66% { transform: translateY(-15px) rotate(240deg); }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0) scale(1); }
+            40% { transform: translateY(-30px) scale(1.2); }
+            60% { transform: translateY(-15px) scale(1.1); }
+        }
+
+        @keyframes sparkle {
+            0%, 100% { transform: scale(1) rotate(0deg); opacity: 1; }
+            50% { transform: scale(1.5) rotate(180deg); opacity: 0.7; }
+        }
+
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(-5deg); }
+            50% { transform: rotate(5deg); }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        h1 {
+            font-family: 'Fredoka One', cursive;
+            font-size: 4em;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #f9ca24, #6c5ce7, #ff9ff3);
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: rainbow-bg 2s ease infinite;
+            text-shadow: 3px 3px 0px rgba(255, 255, 255, 0.8);
+            margin-bottom: 20px;
+        }
+
+        .subtitle {
+            font-size: 1.5em;
+            color: #ff69b4;
+            text-shadow: 2px 2px 0px rgba(255, 255, 255, 0.8);
+            margin-bottom: 30px;
+            animation: wiggle 2s ease-in-out infinite;
+        }
+
+        .kawaii-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+
+        .kawaii-btn {
+            padding: 15px 25px;
+            border: none;
+            border-radius: 50px;
+            font-family: 'Bubblegum Sans', cursive;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            position: relative;
+            overflow: hidden;
+            animation: sparkle 3s ease-in-out infinite;
+        }
+
+        .kawaii-btn:nth-child(1) {
+            background: linear-gradient(135deg, #ff9a9e, #fecfef);
+            color: #ff1493;
+        }
+
+        .kawaii-btn:nth-child(2) {
+            background: linear-gradient(135deg, #a8edea, #fed6e3);
+            color: #20b2aa;
+        }
+
+        .kawaii-btn:nth-child(3) {
+            background: linear-gradient(135deg, #ffd89b, #19547b);
+            color: #ff4500;
+        }
+
+        .kawaii-btn:nth-child(4) {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .kawaii-btn:nth-child(5) {
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            color: white;
+        }
+
+        .kawaii-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            animation: bounce 0.6s ease-in-out infinite;
+        }
+
+        .kawaii-btn.active {
+            transform: scale(1.1);
+            box-shadow: 0 0 30px rgba(255, 20, 147, 0.6);
+        }
+
+        .kawaii-section {
+            display: none;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 30px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.1);
+            border: 5px solid transparent;
+            background-clip: padding-box;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .kawaii-section::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #f9ca24, #6c5ce7, #ff9ff3);
+            background-size: 400% 400%;
+            animation: rainbow-bg 3s ease infinite;
+            border-radius: 35px;
+            z-index: -1;
+        }
+
+        .kawaii-section.active {
+            display: block;
+            animation: bounce 0.8s ease-out;
+        }
+
+        .kawaii-section h2 {
+            font-family: 'Fredoka One', cursive;
+            font-size: 3em;
+            text-align: center;
+            margin-bottom: 30px;
+            color: #ff1493;
+            text-shadow: 3px 3px 0px rgba(255, 255, 255, 0.8);
+            animation: wiggle 3s ease-in-out infinite;
+        }
+
+        .cute-card {
+            background: linear-gradient(135deg, #ff9ff3, #b4f8c8);
+            border-radius: 25px;
+            padding: 30px;
+            margin: 25px 0;
+            border: 3px solid #ff69b4;
+            box-shadow: 0 10px 30px rgba(255, 105, 180, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cute-card::before {
+            content: '✨';
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 2em;
+            animation: sparkle 2s ease-in-out infinite;
+        }
+
+        .cute-card:hover {
+            transform: translateY(-10px) rotate(1deg);
+            box-shadow: 0 20px 40px rgba(255, 105, 180, 0.5);
+        }
+
+        .cute-card h3 {
+            color: #ff1493;
+            font-size: 2em;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 0px rgba(255, 255, 255, 0.8);
+        }
+
+        .cute-card p, .cute-card ul {
+            color: #333;
+            font-size: 1.2em;
+            line-height: 1.8;
+        }
+
+        .rainbow-code {
+            background: linear-gradient(135deg, #2d3748, #4a5568);
+            color: #e2e8f0;
+            padding: 25px;
+            border-radius: 20px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+            border: 3px solid #ff69b4;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .rainbow-code::before {
+            content: '💖 CODE 💖';
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            background: #ff69b4;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            font-family: 'Bubblegum Sans', cursive;
+        }
+
+        .mega-kawaii-demo {
+            background: linear-gradient(135deg, #ffeaa7, #fab1a0, #fd79a8, #e84393);
+            border: 5px solid #ff1493;
+            border-radius: 25px;
+            padding: 30px;
+            margin: 25px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mega-kawaii-demo::before {
+            content: '🌈✨🦄✨🌈';
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 1.2em;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        .super-btn {
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 18px;
+            font-family: 'Bubblegum Sans', cursive;
+            cursor: pointer;
+            margin: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .super-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            animation: sparkle 0.6s ease-in-out;
+        }
+
+        .super-btn::after {
+            content: '✨';
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            animation: sparkle 1s ease-in-out infinite;
+        }
+
+        input[type="text"], input[type="number"] {
+            padding: 15px;
+            border: 3px solid #ff69b4;
+            border-radius: 20px;
+            font-family: 'Bubblegum Sans', cursive;
+            font-size: 16px;
+            margin: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 5px 15px rgba(255, 105, 180, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #ff1493;
+            box-shadow: 0 0 20px rgba(255, 20, 147, 0.4);
+            transform: scale(1.05);
+        }
+
+        #demo-output {
+            background: rgba(255, 255, 255, 0.9);
+            border: 3px solid #4ecdc4;
+            border-radius: 20px;
+            padding: 20px;
+            margin-top: 20px;
+            min-height: 60px;
+            font-family: 'Bubblegum Sans', cursive;
+            font-size: 1.2em;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .unicorn-visualizer {
+            background: linear-gradient(135deg, #a8edea, #fed6e3);
+            border: 5px solid #ff69b4;
+            border-radius: 25px;
+            padding: 30px;
+            margin: 25px 0;
+            text-align: center;
+        }
+
+        .magical-array {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 25px 0;
+            flex-wrap: wrap;
+        }
+
+        .magical-element {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-weight: bold;
+            font-size: 1.2em;
+            transition: all 0.5s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            border: 3px solid #ff69b4;
+        }
+
+        .magical-element.comparing {
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            transform: scale(1.3) rotate(15deg);
+            box-shadow: 0 0 25px rgba(240, 147, 251, 0.8);
+        }
+
+        .magical-element.sorted {
+            background: linear-gradient(135deg, #4ecdc4, #44a08d);
+            animation: bounce 1s ease-in-out;
+        }
+
+        .kawaii-quiz {
+            background: linear-gradient(135deg, #ffeaa7, #fab1a0);
+            border: 5px solid #e17055;
+            border-radius: 25px;
+            padding: 30px;
+            margin: 25px 0;
+        }
+
+        .quiz-question {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #2d3436;
+            text-align: center;
+            text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.8);
+        }
+
+        .quiz-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .quiz-option {
+            background: rgba(255, 255, 255, 0.9);
+            border: 3px solid #e17055;
+            border-radius: 20px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            font-weight: bold;
+            position: relative;
+        }
+
+        .quiz-option:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            border-color: #ff6b6b;
+        }
+
+        .quiz-option.correct {
+            border-color: #00b894;
+            background: #d5f4e6;
+            animation: bounce 0.8s ease-in-out;
+        }
+
+        .quiz-option.incorrect {
+            border-color: #e17055;
+            background: #fab1a0;
+        }
+
+        .quiz-option::before {
+            content: '🌟';
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            font-size: 1.5em;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .quiz-option.correct::before {
+            opacity: 1;
+            content: '💖';
+        }
+
+        .quiz-option.incorrect::before {
+            opacity: 1;
+            content: '💔';
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 30px;
+            background: linear-gradient(135deg, #ff9a9e, #fecfef);
+            border-radius: 25px;
+            color: #ff1493;
+            font-size: 1.3em;
+            font-weight: bold;
+            text-shadow: 2px 2px 0px rgba(255, 255, 255, 0.8);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5em;
+            }
+            
+            .kawaii-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .kawaii-section {
+                padding: 25px;
+            }
+            
+            .quiz-options {
+                grid-template-columns: 1fr;
+            }
+            
+            .magical-array {
+                justify-content: flex-start;
+            }
+        }
+
+        /* Partículas flotantes */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            font-size: 1.5em;
+            animation: particleFloat 8s linear infinite;
+        }
+
+        @keyframes particleFloat {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Partículas flotantes -->
+    <div class="particles" id="particles"></div>
+
+    <div class="container">
+        <header>
+            <h1>🌈✨ KAWAII WONDERLAND ✨🌈</h1>
+            <p class="subtitle">🦄 ¡El lugar más adorable del internet! 💖</p>
+        </header>
+
+        <nav class="kawaii-buttons">
+            <button class="kawaii-btn active" onclick="showKawaiiSection('unicorns')">🦄 Unicornios</button>
+            <button class="kawaii-btn" onclick="showKawaiiSection('rainbows')">🌈 Arcoíris</button>
+            <button class="kawaii-btn" onclick="showKawaiiSection('magic')">✨ Magia</button>
+            <button class="kawaii-btn" onclick="showKawaiiSection('hearts')">💖 Corazones</button>
+            <button class="kawaii-btn" onclick="showKawaiiSection('quiz')">🎯 Quiz Kawaii</button>
+        </nav>
+
+        <section id="unicorns" class="kawaii-section active">
+            <h2>🦄 MUNDO UNICORNIO 🦄</h2>
+            
+            <div class="cute-card">
+                <h3>🌟 ¡Conoce a los Unicornios! 🌟</h3>
+                <p>Los unicornios son las criaturas más mágicas y adorables del universo! 🦄💖 Viven en bosques encantados comiendo algodón de azúcar y bebiendo té de arcoíris! ✨</p>
+            </div>
+
+            <div class="cute-card">
+                <h3>🎭 Datos Súper Kawaii</h3>
+                <ul style="margin: 15px 0 15px 30px; color: #ff1493;">
+                    <li>🌈 Sus cuernos brillan con colores del arcoíris</li>
+                    <li>✨ Pueden volar entre las nubes rosadas</li>
+                    <li>💖 Su comida favorita son los cupcakes de fresa</li>
+                    <li>🎵 Hacen música mágica con sus cascos</li>
+                </ul>
+                <div class="rainbow-code">
+// Código mágico de unicornio 🦄
+function crearUnicornio() {
+    let unicornio = {
+        nombre: "Sparkles ✨",
+        color: "Rosa con purpurina 💖",
+        poder: "Crear arcoíris 🌈",
+        personalidad: "Súper kawaii! 🥰"
+    };
+    return unicornio;
+}
+                </div>
+            </div>
+
+            <div class="mega-kawaii-demo">
+                <h4>🎨 ¡Generador de Nombres de Unicornio! 🎨</h4>
+                <button class="super-btn" onclick="generarNombreUnicornio()">¡Generar Nombre Mágico!</button>
+                <div id="unicorn-name" style="margin-top: 20px; font-size: 1.5em; color: #ff1493; font-weight: bold;"></div>
+            </div>
+        </section>
+
+        <section id="rainbows" class="kawaii-section">
+            <h2>🌈 FÁBRICA DE ARCOÍRIS 🌈</h2>
+            
+            <div class="cute-card">
+                <h3>🎨 ¿Cómo se hacen los Arcoíris?</h3>
+                <p>¡Los arcoíris se hacen mezclando sonrisas, purpurina mágica y muchísimo amor! 💖✨ Cada color representa una emoción kawaii diferente! 🌈</p>
+            </div>
+
+            <div class="cute-card">
+                <h3>🌈 Los 7 Colores Mágicos</h3>
+                <div style="display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; margin: 20px 0;">
+                    <div style="background: #ff6b6b; padding: 15px; border-radius: 15px; color: white; font-weight: bold;">🔴 Rojo de Amor</div>
+                    <div style="background: #ff9f43; padding: 15px; border-radius: 15px; color: white; font-weight: bold;">🧡 Naranja de Alegría</div>
+                    <div style="background: #feca57; padding: 15px; border-radius: 15px; color: white; font-weight: bold;">💛 Amarillo de Felicidad</div>
+                    <div style="background: #48dbfb; padding: 15px; border-radius: 15px; color: white; font-weight: bold;">💚 Verde de Esperanza</div>
+                    <div style="background: #0abde3; padding: 15px; border-radius: 15px; color: white; font-weight: bold;">💙 Azul de Paz</div>
+                    <div style="background: #6c5ce7; padding: 15px; border-radius: 15px; color: white; font-weight: bold;">💜 Índigo de Magia</div>
+                    <div style="background: #a55eea; padding: 15px; border-radius: 15px; color: white; font-weight: bold;">💜 Violeta de Sueños</div>
+                </div>
+            </div>
+
+            <div class="mega-kawaii-demo">
+                <h4>🎨 ¡Pinta tu Propio Arcoíris! 🎨</h4>
+                <button class="super-btn" onclick="crearArcoiris()">¡Crear Arcoíris Mágico!</button>
+                <div id="rainbow-canvas" style="margin-top: 20px; height: 100px; border-radius: 20px; transition: all 0.5s ease;"></div>
+            </div>
+        </section>
+
+        <section id="magic" class="kawaii-section">
+            <h2>✨ LABORATORIO MÁGICO ✨</h2>
+            
+            <div class="cute-card">
+                <h3>🧪 Fórmulas Mágicas Kawaii</h3>
+                <p>¡Aquí creamos las pociones más adorables del mundo! Mezclamos estrellitas, purpurina y muchísimo amor para hacer magia pura! 💖✨</p>
+            </div>
+
+            <div class="unicorn-visualizer">
+                <h4>🦄 ¡Ordenador Mágico de Unicornios! 🦄</h4>
+                <p style="color: #ff1493; font-weight: bold;">¡Ve cómo los unicornios ordenan números con magia! ✨</p>
+                <button class="super-btn" onclick="generarArrayMagico()">🌟 Generar Números Mágicos</button>
+                <button class="super-btn" onclick="ordenarConMagia()">✨ ¡Ordenar con Magia!</button>
+                <button class="super-btn" onclick="resetearMagia()">🔄 Nuevo Hechizo</button>
+                <div class="magical-array" id="magical-array"></div>
+                <div id="magic-info" style="font-weight: bold; color: #ff1493; margin-top: 15px;">¡Haz clic en "Generar Números Mágicos" para comenzar! 🌈</div>
+            </div>
+
+            <div class="mega-kawaii-demo">
+                <h4>🎲 ¡Calculadora Mágica! 🎲</h4>
+                <input type="number" id="magic-num1" placeholder="Primer número mágico ✨">
+                <input type="number" id="magic-num2" placeholder="Segundo número mágico 🌟">
+                <br>
+                <button class="super-btn" onclick="calcularMagia('+')">➕ Sumar</button>
+                <button class="super-btn" onclick="calcularMagia('-')">➖ Restar</button>
+                <button class="super-btn" onclick="calcularMagia('*')">✖️ Multiplicar</button>
+                <button class="super-btn" onclick="calcularMagia('/')">/️ Dividir</button>
+                <div id="magic-calc-result" style="margin-top: 20px; font-size: 1.3em; color: #ff1493; font-weight: bold;"></div>
+            </div>
+        </section>
+
+        <section id="hearts" class="kawaii-section">
+            <h2>💖 REINO DE LOS CORAZONES 💖</h2>
+            
+            <div class="cute-card">
+                <h3>💕 La Historia de los Corazoncitos</h3>
+                <p>Los corazoncitos kawaii viven en un castillo de algodón de azúcar! 🏰💖 Pasan todo el día bailando y repartiendo amor por el mundo! ✨</p>
+            </div>
+
+            <div class="cute-card">
+                <h3>🌟 Tipos de Corazones Kawaii</h3>
+                <div style="font-size: 2em; text-align: center; margin: 20px 0;">
+                    💖 💝 💗 💓 💕 💞 💘 ❣️ 💔 ❤️ 🧡 💛 💚 💙 💜 🤍 🖤 🤎
+                </div>
+                <p style="text-align: center; color: #ff1493; font-weight: bold;">¡Cada corazón tiene su propia personalidad adorable! 🥰</p>
+            </div>
+
+            <div class="mega-kawaii-demo">
+                <h4>💖 ¡Lluvia de Corazones! 💖</h4>
+                <button class="super-btn" onclick="lluviaDeCorazones()">💕 ¡Comenzar Lluvia de Amor!</button>
+                <button class="super-btn" onclick="cambiarColorCorazones()">🌈 Cambiar Colores</button>
+                <div id="hearts-area" style="height: 150px; position: relative; border: 3px dashed #ff69b4; border-radius: 20px; margin-top: 20px; overflow: hidden;"></div>
+            </div>
+        </section>
+
+        <section id="quiz" class="kawaii-section">
+            <h2>🎯 QUIZ SÚPER KAWAII 🎯</h2>
+            
+            <div class="kawaii-quiz">
+                <div class="quiz-question" id="kawaii-quiz-question">¡Cargando pregunta súper kawaii...! 🌈</div>
+                <div class="quiz-options" id="kawaii-quiz-options"></div>
+                <div id="kawaii-quiz-feedback" style="margin-top: 20px; font-weight: bold; text-align: center

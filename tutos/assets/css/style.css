@@ -1,0 +1,97 @@
+body {
+    background-color: black;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    transition: background-color .4s;
+}
+
+aside {
+    position: fixed;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    width: fit-content;
+    height: fit-content;
+    right: 0;
+    top: 0;
+    margin: 20px;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: rgba(240, 248, 255, 0.5);
+    filter: drop-shadow(0 0 5px black);
+}
+
+main {
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+#player {
+    background-image: url('/assets/img/job.png');
+    width: 80px;
+    height: 100px;
+    background-size: contain;
+    position: absolute;
+    margin-left: 50px;
+}
+
+#enemies {
+    width: 100%;
+    height: 100vh;
+}
+
+#enemies img {
+    position: fixed;
+    right: 0;
+    animation: moveLeft 10s linear forwards, blink .7s infinite alternate-reverse, ondulate .7s infinite alternate-reverse;
+    border-radius: 100%;
+    transition: transform 2s;
+}
+
+@keyframes moveLeft {
+    from {
+        left: 100vw;
+    }
+    to {
+        left: -75px;
+    }
+}
+
+@keyframes ondulate {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(50px);
+    }
+}
+
+@keyframes blink {
+    from {
+        filter: drop-shadow(0 0 20px #ffffffaa);
+    }
+    to {
+        filter: drop-shadow(0 0 10px #ffffffff);
+    }
+}
+
+table {
+    color: whitesmoke;
+    z-index: 1000;
+}
+
+th {
+    text-align: left;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}

@@ -1,6 +1,6 @@
 <?php
 function getAllJocs(PDO $pdo): array {
-    $stmt = $pdo->query("SELECT id, nom_joc, descripcio, puntuacio_maxima, nivells_totals, actiu FROM jocs ORDER BY id DESC");
+    $stmt = $pdo->query("SELECT id, nom_joc, descripcio, imatge_joc, puntuacio_maxima, nivells_totals, actiu FROM jocs ORDER BY id DESC");
     return $stmt->fetchAll();
 }
 

@@ -1,0 +1,38 @@
+header {
+    background-color: black;
+    width: 100%;
+    padding: 20px;
+    color: white;
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header .identity {
+    display: grid;
+    grid-template-columns: min-content auto;
+    justify-content: center;
+    align-items: center;
+    column-gap: 10px;
+}
+
+.friv_game {
+    margin-left: 10px; 
+    border: solid 5px whitesmoke;
+    border-radius: 15px;
+    height: 80px;
+    width: 80px;
+    filter: drop-shadow(0 0 10px black);
+    transition: all .2s;
+}
+
+.friv_game:hover {
+    transform: scale(1.1);
+}
+
+.game-container {
+    display: flex;
+    flex-wrap: wrap;
+}

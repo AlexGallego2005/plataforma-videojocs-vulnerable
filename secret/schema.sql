@@ -29,6 +29,7 @@ CREATE TABLE IF NOT EXISTS jocs (
     id INT PRIMARY KEY AUTO_INCREMENT,
     nom_joc VARCHAR(50) NOT NULL,
     descripcio TEXT,
+    imatge_joc VARCHAR(255),
     puntuacio_maxima INT DEFAULT 0,
     nivells_totals INT DEFAULT 1,
     actiu BOOLEAN DEFAULT TRUE

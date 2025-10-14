@@ -42,8 +42,7 @@ $jocs = getAllJocs($pdo);
   </ul>
 
 
-      <marquee style="position: fixed; bottom: 0; color: white;">La página se llama "Spartanos" porque las personas espartanas vivían con lo justo y necesario. Por eso, hemos adoptado esa filosofía a nuestro proyecto, ya que queremos hacer lo justo y necesario para execeler. Un saludo!</marquee>
-
+  <marquee style="position: fixed; bottom: 0; color: white;">La página se llama "Spartanos" porque las personas espartanas vivían con lo justo y necesario. Por eso, hemos adoptado esa filosofía a nuestro proyecto, ya que queremos hacer lo justo y necesario para execeler. Un saludo!</marquee>
 </body>
 
 </html>

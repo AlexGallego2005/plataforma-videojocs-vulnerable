@@ -54,5 +54,72 @@ if ($method === 'POST' && str_contains($uri, 'jocs')) {
     exit;
 }
 
+if (!isset($input['action'])) {
+    echo json_encode(['success' => false, 'message' => 'Acció no especificada']);
+    exit;
+}
+
+$action = $input['action'];
+
+// Guardar partida
+if ($action === 'save_game') {
+    if (!isset($_SESSION['usuari_id'])) {
+        echo json_encode(['success' => false, 'message' => 'No autoritzat']);
+        exit;
+    }
+    
+    $usuari_id = $input['usuari_id'];
+    $joc_id = $input['joc_id'];
+    $nivell = $input['nivell'];
+    $puntuacio = $input['puntuacio'];
+    $durada = $input['durada'];
+    $guanyat = $input['guanyat'];
+    
+    // Verificar que el usuario de la sesión coincide
+    if ($usuari_id != $_SESSION['usuari_id']) {
+        echo json_encode(['success' => false, 'message' => 'Usuari no vàlid']);
+        exit;
+    }
+    
+    try {
+        // Guardar la partida
+        $partida_id = saveGameMatch($usuari_id, $joc_id, $nivell, $puntuacio, $durada);
+        
+        // Actualizar progreso del usuario
+        updateUserProgress($usuari_id, $joc_id, $nivell, $puntuacio, $guanyat);
+        
+        echo json_encode([
+            'success' => true, 
+            'message' => 'Partida guardada correctament',
+            'partida_id' => $partida_id
+        ]);
+    } catch (Exception $e) {
+        echo json_encode([
+            'success' => false, 
+            'message' => 'Error al guardar la partida: ' . $e->getMessage()
+        ]);
+    }
+    exit;
+}
+
+// Obtener estadísticas
+if ($action === 'get_stats') {
+    if (!isset($_SESSION['usuari_id'])) {
+        echo json_encode(['success' => false, 'message' => 'No autoritzat']);
+        exit;
+    }
+    
+    $usuari_id = $_SESSION['usuari_id'];
+    $joc_id = $input['joc_id'];
+    
+    $stats = getGameStats($usuari_id, $joc_id);
+    
+    echo json_encode([
+        'success' => true,
+        'stats' => $stats
+    ]);
+    exit;
+}
+
 http_response_code(404);
 echo json_encode(['error'=>'not_found']);

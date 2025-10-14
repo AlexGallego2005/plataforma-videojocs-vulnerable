@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adivina el Anime</title>
+
+    <link rel="stylesheet" href="./css/style.css">
+
+</head>
+<body>
+    <div class="container">
+        <h1>🎌 Adivina el Anime</h1>
+        <div class="score">Puntuación: <span id="score">0</span></div>
+
+        <div class="hint" id="hintBox">Cargando anime...</div>
+
+        <div class="message" id="message"></div>
+
+        <div class="input-group">
+            <input 
+                type="text" 
+                id="guessInput" 
+                placeholder="Escribe el nombre del anime..." 
+                autocomplete="off"
+            >
+            <button onclick="makeGuess()">Adivinar</button>
+        </div>
+
+        <div class="attempts" id="attempts"></div>
+
+        <button onclick="nextAnime()" style="width: 100%; margin-top: 10px;">
+            Siguiente Anime ➜
+        </button>
+
+        <button onclick="skipAnime()" style="width: 100%; margin-top: 10px; background: #ff6b6b;">
+            Rendirse
+        </button>
+    </div>
+
+    <script src="./js/script.js"></script>
+</body>
+</html>

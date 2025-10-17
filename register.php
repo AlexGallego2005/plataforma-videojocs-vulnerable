@@ -38,18 +38,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="utf-8">
     <title>Registre</title>
     <link rel="stylesheet" href="./assets/global.style.css">
+    <link rel="stylesheet" href="./assets/index.style.css">
 </head>
 <body>
-<h1>Registre d'usuari</h1>
-<?php if($errors) foreach($errors as $e) echo "<p style='color:red;'>$e</p>"; ?>
-<form method="post">
-  <input name="nom_usuari" placeholder="Nom d'usuari" required><br>
-  <input name="email" type="email" placeholder="Correu electrònic" required><br>
-  <input name="nom_complet" placeholder="Nom complet"><br>
-  <input name="password" type="password" placeholder="Contrasenya" required><br>
-  <input name="password_confirm" type="password" placeholder="Repeteix contrasenya" required><br>
-  <button>Registrar</button>
-</form>
-<p><a href="/login.php">Ja tens compte? Inicia sessió</a></p>
+    <div class="home">
+        <div class="identity">
+            <img width="80px" src="./assets/helmet.png" alt="">
+            <h1>Spartanos</h1>
+        </div>
+        
+        <br>
+        
+        <h2>Crear un compte</h2>
+            <?php if($errors) foreach($errors as $e) echo "<p style='color:red;'>$e</p>"; ?>
+            <form method="post">
+              <input name="nom_usuari" placeholder="Nom d'usuari" required><br>
+              <input name="email" type="email" placeholder="Correu electrònic" required><br>
+              <input name="nom_complet" placeholder="Nom complet"><br>
+              <input name="password" type="password" placeholder="Contrasenya" required><br>
+              <input name="password_confirm" type="password" placeholder="Repeteix contrasenya" required><br>
+              <button>Registrar</button>
+            </form>
+        <p><a href="/login.php">Ja tens compte? Inicia sessió</a></p>
+    </div>
 </body>
 </html>

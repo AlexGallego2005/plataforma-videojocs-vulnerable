@@ -121,5 +121,29 @@ if ($action === 'get_stats') {
     exit;
 }
 
+// Obtener Ranking
+if ($action === 'get_ranking') {
+    // Verifica sesión
+    if (!isset($_SESSION['usuari_id'])) {
+        echo json_encode(['success' => false, 'message' => 'No autoritzat']);
+        exit;
+    }
+
+    // Obtener el ranking general o por juego
+    $joc_id = $input['joc_id'] ?? null;
+
+    // Llamamos a una función del modelo que haremos a continuación
+    $ranking = getRanking($pdo, $joc_id);
+
+    echo json_encode([
+        'success' => true,
+        'ranking' => $ranking
+    ]);
+    exit;
+}
+
+
 http_response_code(404);
 echo json_encode(['error'=>'not_found']);
+
+

@@ -107,6 +107,24 @@ html, body {
             enemy.addEventListener('click', () => {
                 points+=10;
                 pointer.textContent = points;
+
+                const bestEl = document.getElementById('best');
+                const currentBest = parseInt(bestEl.textContent, 10);
+
+                // Si supera el récord, actualizar en servidor
+                if (points > currentBest) {
+                    bestEl.textContent = points; // actualizar en pantalla
+                    fetch('update_score.php', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                        body: 'points=' + encodeURIComponent(points)
+                    })
+                    .then( res => {
+                        console.log(res)
+                    });
+                    console.log('sdf')
+                }
+
                 enemy.remove();
             });
             enemy.setAttribute('ttl', Date.now());

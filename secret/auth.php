@@ -27,7 +27,7 @@ function loginUser(PDO $pdo, string $usernameOrEmail, string $password): bool {
 
 function getUser(PDO $pdo) {
     if (!isLogged()) return null;
-    $stmt = $pdo->prepare("SELECT id, nom_usuari, email, nom_complet, data_registre FROM usuaris WHERE id = ?");
+    $stmt = $pdo->prepare("SELECT id, nom_usuari, email, nom_complet, avatar, data_registre, password_hash FROM usuaris WHERE id = ?");
     $stmt->execute([$_SESSION['usuari_id']]);
     return $stmt->fetch();
 }

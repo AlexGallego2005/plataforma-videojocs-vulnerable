@@ -18,16 +18,7 @@ $jocs = getAllJocs($pdo);
 </head>
 
 <body>
-  <header>
-    <div class="identity">
-      <img width="30px" src="./assets/helmet.png" alt="">
-      <strong style="font-size: 26px;">Spartanos</strong>
-    </div>
-    <div class="user">
-      <span>Bienvenido, <strong><?= htmlspecialchars($usuari['nom_usuari']) ?></strong></span>
-      <a href="/logout.php">Salir</a>
-    </div>
-  </header>
+  <?php include 'header.php'; ?>
   <ul style="list-style-type: none;" class="game-container">
     <?php foreach ($jocs as $j): ?>
       <li>

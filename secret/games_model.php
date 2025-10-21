@@ -163,4 +163,47 @@ function getRecentMatches($usuari_id, $joc_id, $limit = 5) {
     $stmt->execute([$usuari_id, $joc_id, $limit]);
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+
+/**
+ * Obtener Ranking
+ */
+function getRanking($pdo, $joc_id = null, $limit = 5) {
+    if ($joc_id) {
+        $stmt = $pdo->prepare("
+            SELECT u.nom_usuari AS usuario, j.nom_joc AS juego, MAX(p.puntuacio_obtinguda) AS puntuacion
+            FROM partides p
+            JOIN usuaris u ON p.usuari_id = u.id
+            JOIN jocs j ON p.joc_id = j.id
+            WHERE p.joc_id = :joc_id
+            GROUP BY u.id, j.id
+            ORDER BY puntuacion DESC
+            LIMIT :limit
+        ");
+        $stmt->bindValue(':joc_id', $joc_id, PDO::PARAM_INT);
+        $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+        $stmt->execute();
+    } else {
+        $stmt = $pdo->prepare("
+            SELECT u.nom_usuari AS usuario, j.nom_joc AS juego, MAX(p.puntuacio_obtinguda) AS puntuacion
+            FROM partides p
+            JOIN usuaris u ON p.usuari_id = u.id
+            JOIN jocs j ON p.joc_id = j.id
+            GROUP BY u.id, j.id
+            ORDER BY puntuacion DESC
+            LIMIT :limit
+        ");
+        $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+        $stmt->execute();
+    }
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function updateUserMaxScore($usuari_id, $joc_id, $points)
+{
+    global $pdo; // o el objeto de conexión que uses
+    $stmt = $pdo->prepare("UPDATE progres_usuari SET puntuacio_maxima = ? WHERE usuari_id = ? AND joc_id = ?");
+    $stmt->execute([$points, $usuari_id, $joc_id]);
+}
+
 ?>

@@ -2,6 +2,7 @@
 require_once __DIR__ . '/secret/db.php';
 require_once __DIR__ . '/secret/auth.php';
 
+
 $error = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

@@ -1,0 +1,33 @@
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+div.home {
+    background-color: whitesmoke;
+    border-radius: 15px;
+    padding: 20px 40px;
+    filter: drop-shadow(0 0 20px black);
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: auto min-content min-content;
+}
+
+div.identity {
+    display: grid;
+    grid-template-columns: min-content auto;
+    grid-template-rows: auto;
+    column-gap: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+input {
+    padding: 10px;
+    outline: none;
+    border-radius: 15px;
+    margin: 5px;
+}

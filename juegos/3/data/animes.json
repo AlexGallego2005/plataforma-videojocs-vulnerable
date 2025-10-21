@@ -1,0 +1,133 @@
+{
+  "animes": [
+    {
+      "name": "Attack on Titan",
+      "hints": [
+        "Gigantes humanoides atacan a la humanidad",
+        "Tres muros rodean la civilización",
+        "El protagonista jura venganza"
+      ]
+    },
+    {
+      "name": "Death Note",
+      "hints": [
+        "Un cuaderno mágico que puede matar",
+        "El protagonista es un estudiante de secundaria",
+        "Hay un detective misterioso"
+      ]
+    },
+    {
+      "name": "Naruto",
+      "hints": [
+        "Un ninja joven con sueños de ser Hokage",
+        "Tiene una bestia dentro de sí",
+        "Tiene amigos llamados Sasuke y Sakura"
+      ]
+    },
+    {
+      "name": "Kimetsu no Yaiba",
+      "hints": [
+        "Los protagonistas luchan contra demonios",
+        "Hay una espada especial de color respiratorio",
+        "La hermana del protagonista se convierte en demonio"
+      ]
+    },
+    {
+      "name": "My Hero Academia",
+      "hints": [
+        "Un mundo donde la mayoría tiene superpoderes",
+        "El protagonista es un héroe en entrenamiento",
+        "Hay una escuela de superhéroes"
+      ]
+    },
+    {
+      "name": "Steins;Gate",
+      "hints": [
+        "Viajes en el tiempo con un microondas",
+        "Un grupo de científicos amateurs",
+        "Hay temas de física y ciencia"
+      ]
+    },
+    {
+      "name": "Fullmetal Alchemist",
+      "hints": [
+        "Dos hermanos buscan una piedra legendaria",
+        "Uno perdió su cuerpo, otro su brazo",
+        "Usan alquimia como poder"
+      ]
+    },
+    {
+      "name": "Jujutsu Kaisen",
+      "hints": [
+        "Un joven consume un dedo misterioso",
+        "Lucha contra entidades sobrenaturales",
+        "Asiste a una escuela secreta de hechicería"
+      ]
+    },
+    {
+      "name": "Cowboy Bebop",
+      "hints": [
+        "Una nave espacial llamada Bebop",
+        "Un grupo de cazarrecompensas",
+        "Jazz y espacio interestelar"
+      ]
+    },
+    {
+      "name": "Code Geass",
+      "hints": [
+        "Un estudiante obtiene un poder especial de un ojo",
+        "Puede hacer que la gente obedezca sus órdenes",
+        "Esconde su identidad como un personaje encubierto"
+      ]
+    },
+    {
+      "name": "One Punch Man",
+      "hints": [
+        "El protagonista es calvo.",
+        "Tiene una fuerza sobrehumana.",
+        "Elimina a todos sus enemigos de un solo puñetazo."
+      ]
+    },
+    {
+      "name": "Hunter X Hunter",
+      "hints": [
+        "El protagonista es un niño de 12 años.",
+        "El poder que utilizan se llama Nen.",
+        "El protagonista utiliza el Piedra-Papel-Tijeras como ataque."
+      ]
+    },
+    {
+      "name": "Dragon Ball",
+      "hints": [
+        "El protagonista viene de otro planeta.",
+        "Utiliza transformaciones para aumentar su poder.",
+        "El ataque más eficaz se llama 'Kamehameha'."
+      ]
+    },
+    {
+      "name": "Konosuba",
+      "hints": [
+        "El protagonista muere debido a un susto.",
+        "Una de las protagonistas pierde sus capacidades después de un ataque mágico.",
+        "EXPLOSION!"
+      ]
+    },
+    {
+      "name": "One Piece",
+      "hints": [
+        "El protagonista tiene una cicatriz debajo del ojo.",
+        "La serie trata de piratas.",
+        "Se conoce a la tripulación del protagonista como 'Los sombrero de paja'"
+      ]
+    },
+    {
+      "name": "Dr Stone",
+      "hints": [
+        "El protagonista utiliza la ciencia para sus quehaceres.",
+        "Vuelve a la vida después de más de 2000 años convertido en piedra.",
+        "El protagonista se llama Senkuu."
+      ]
+    }
+    
+  ]
+}

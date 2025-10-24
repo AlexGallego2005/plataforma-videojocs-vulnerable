@@ -68,47 +68,67 @@ html, body {
             </span>
         </div>
     </div>
+    <div id="lost" class="lose" style="display: none; text-align: center; position: fixed; align-items: center; justify-content: center; width: 100vw; z-index: 999; height: 100vh; background-color: white;">
+        <h1>has perdido</h1>
+        <h3>[F5] para volver a jugar</h3>
+        <hr>
+    </div>
     <div id="game-area" style="position: relative; min-height: 100%;"></div>
     <script>
         const game_configs = <?php echo json_encode($nivells) ?>;
         var points = <?php echo $points ?>;
+        var maxPoints = <?php echo $points ?>;
         var this_level;
+        var lost =  false;
         var this_level_json;
+        const losted = document.getElementById('lost');
         const gameArea = document.getElementById('game-area');
         const pointer = document.getElementById('points');
         const level = document.getElementById('level');
+        const bestEl = document.getElementById('best');
 
         function setup()
         {
             this_level = game_configs.filter(l => l.puntuacio_minima <= points).at(-1);
             this_level_json = JSON.parse(this_level.configuracio_json);
             level.textContent = this_level.nivell;
-            document.styleSheets[0].insertRule(`.enemy { background-color: #${this_level_json.color} }`, 0)
+            document.styleSheets[0].insertRule(`.enemy { background-color: #${ this_level_json.color } }`, 0)
 
             requestAnimationFrame(loop);
         };
         
         function loop()
         {
-            console.log(this_level_json)
+            if (lost)
+            {
+                document.body.style.userSelect = "none";
+                losted.style.display = 'block';
+                losted.insertAdjacentHTML(`beforeend`, `<p>máximo puntos sesion: ${ maxPoints }</p><p>record: ${ bestEl.textContent }</p>`)
+                return;
+            };
+
             if (this_level.nivell !== game_configs.filter(l => l.puntuacio_minima <= points).at(-1).nivell)
             {
                 setup();
                 return;
             }
 
+            if (points < 0)
+            {
+                lost = true;
+                return;
+            };
+
             var paused = 1_000*(this_level.nivell/0.5);
             const enemy = document.createElement('div');
             const size = Math.floor(Math.random() * this_level_json.sizeVariationPx) + this_level_json.sizePx - (this_level_json.sizeVariationPx / 2);
             enemy.style.width = `${ size }px`;
             enemy.style.height = `${ size }px`;
-            console.log(Math.floor(Math.random() * this_level_json.sizeVariationPx) + this_level_json.sizePx - (this_level_json.sizeVariationPx / 2))
-            console.log(1_000*(this_level.nivell/0.5))
             enemy.addEventListener('click', () => {
-                points+=10;
+                points+=10*this_level.nivell;
                 pointer.textContent = points;
+                if (points > maxPoints) maxPoints = points;
 
-                const bestEl = document.getElementById('best');
                 const currentBest = parseInt(bestEl.textContent, 10);
 
                 // Si supera el récord, actualizar en servidor
@@ -118,25 +138,30 @@ html, body {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                         body: 'points=' + encodeURIComponent(points)
-                    })
-                    .then( res => {
-                        console.log(res)
                     });
-                    console.log('sdf')
                 }
 
-                enemy.remove();
+                enemy.parentElement.removeChild(enemy);
             });
             enemy.setAttribute('ttl', Date.now());
             enemy.setAttribute('class', 'enemy');
             enemy.style.position = "fixed";
             enemy.style.top = `${ Math.floor(Math.random() * (gameArea.getBoundingClientRect().height - this_level_json.sizePx) )}px`;
             enemy.style.left = `${ Math.floor(Math.random() * (gameArea.getBoundingClientRect().width - this_level_json.sizePx) )}px`;
+            setTimeout(() => {
+                if (lost) return;
+                if (enemy)
+                {
+                    enemy.parentElement.removeChild(enemy);
+                    points-=10;
+                    pointer.textContent = points;
+                    if (points<0) lost = true;
+                };
+            }, this_level_json.ttl * 1000);
             gameArea.insertAdjacentElement('beforeend', enemy);
             setTimeout(() => {
-                
-            requestAnimationFrame(loop);
-            }, 1000);
+                requestAnimationFrame(loop);
+            }, 900 + (100 * this_level.nivell));
         };
         setup();
     </script>

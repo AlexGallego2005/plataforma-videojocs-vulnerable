@@ -199,11 +199,17 @@ function getRanking($pdo, $joc_id = null, $limit = 5) {
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
+/**
+ * Actualizar Max Score
+ */
+
 function updateUserMaxScore($usuari_id, $joc_id, $points)
 {
     global $pdo; // o el objeto de conexión que uses
     $stmt = $pdo->prepare("UPDATE progres_usuari SET puntuacio_maxima = ? WHERE usuari_id = ? AND joc_id = ?");
     $stmt->execute([$points, $usuari_id, $joc_id]);
 }
+
+
 
 ?>

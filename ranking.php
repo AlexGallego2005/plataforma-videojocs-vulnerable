@@ -6,7 +6,7 @@ require_once __DIR__ . '/secret/games_model.php';
 requireLogin();
 $usuari = getUser($pdo);
 $jocs = getAllJocs($pdo);
-
+$ranking = getRanking($pdo);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -27,33 +27,9 @@ $jocs = getAllJocs($pdo);
         </div>
         <br>
         <h2>Los 5 mejores jugadores</h2>
-        <table>
-            <tr>
-                <th>Usuarios</th>
-                <th>Juego</th>
-                <th>Puntuacion</th>
-                <th>Fecha</th>
-            </tr>
-                <?php foreach ($usuari as $u): ?>
-                    <?= htmlspecialchars($u['nom_usuari'] ?? '') ?><br>
-                <?php endforeach; ?>
-            </tr>
-            <tr>
-                <?php foreach ($jocs as $j): ?>
-                    <?= htmlspecialchars($j['nom_joc'] ?? '') ?><br>
-                <?php endforeach; ?>
-            </tr>
-            <tr>
-                <?php foreach ($puntuacion as $p): ?>
-                    <?= htmlspecialchars($p['puntuacio'] ?? '') ?><br>
-                <?php endforeach; ?>
-            </tr>
-            <tr>
-                <?php foreach ($date as $d): ?>
-                    <?= htmlspecialchars($d['fecha'] ?? '') ?><br>
-                <?php endforeach; ?>
-            </tr>
-        </table>
+        <?php foreach ($ranking as $r): ?>
+            <?= htmlspecialchars($r['id'])?>
+        <?php endforeach; ?>
     </div>
 </body>
 </html>

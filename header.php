@@ -5,7 +5,7 @@
     </div>
     <div style="font-size: 18px; display: flex; justify-content: flex-start; column-gap: 20px;">
         <a href="/games.php">Juegos</a>
-        <a href="/games.php">Ranking</a>
+        <a href="/ranking.php">Ranking</a>
     </div>
     <div style="display: flex; flex-wrap: nowrap; align-items: center; column-gap: 20px;">
         <div class="user" style="display: grid; grid-template-columns: min-content auto; align-items: center; column-gap: 10px;">

@@ -169,30 +169,12 @@ function getRecentMatches($usuari_id, $joc_id, $limit = 5) {
  */
 function getRanking($pdo, $joc_id = null, $limit = 5) {
     if ($joc_id) {
-        $stmt = $pdo->prepare("
-            SELECT u.nom_usuari AS usuario, j.nom_joc AS juego, MAX(p.puntuacio_obtinguda) AS puntuacion
-            FROM partides p
-            JOIN usuaris u ON p.usuari_id = u.id
-            JOIN jocs j ON p.joc_id = j.id
-            WHERE p.joc_id = :joc_id
-            GROUP BY u.id, j.id
-            ORDER BY puntuacion DESC
-            LIMIT :limit
-        ");
-        $stmt->bindValue(':joc_id', $joc_id, PDO::PARAM_INT);
-        $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+        $stmt = $pdo->prepare("select joc_id, nom_joc, progres_usuari.puntuacio_maxima, nom_usuari from jocs JOIN progres_usuari ON jocs.id = progres_usuari.joc_id JOIN usuaris ON progres_usuari.usuari_id = usuaris.id order by joc_id, puntuacio_maxima DESC;");
+        //$stmt->bindValue(':joc_id', $joc_id, PDO::PARAM_INT);
+        //$stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
         $stmt->execute();
     } else {
-        $stmt = $pdo->prepare("
-            SELECT u.nom_usuari AS usuario, j.nom_joc AS juego, MAX(p.puntuacio_obtinguda) AS puntuacion
-            FROM partides p
-            JOIN usuaris u ON p.usuari_id = u.id
-            JOIN jocs j ON p.joc_id = j.id
-            GROUP BY u.id, j.id
-            ORDER BY puntuacion DESC
-            LIMIT :limit
-        ");
-        $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+        $stmt = $pdo->prepare("select joc_id, nom_joc, progres_usuari.puntuacio_maxima, nom_usuari from jocs JOIN progres_usuari ON jocs.id = progres_usuari.joc_id JOIN usuaris ON progres_usuari.usuari_id = usuaris.id order by joc_id, puntuacio_maxima DESC;");
         $stmt->execute();
     }
 

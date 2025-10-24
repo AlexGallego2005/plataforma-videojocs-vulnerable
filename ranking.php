@@ -27,6 +27,30 @@ $ranking = getRanking($pdo);
         </div>
         <br>
         <h2>Los 5 mejores jugadores</h2>
+        <table>
+            <tr>
+                <th>Juego</th>
+                <th>Usuario</th>
+                <th>Puntuación</th>
+            </tr>
+            <tr>
+                <td>
+                    <?php foreach ($ranking as $r): ?>
+                        <?= htmlspecialchars($r['nom_joc'])?>
+                    <?php endforeach; ?>
+                </td>
+                <td>
+                    <?php foreach ($ranking as $r): ?>
+                        <?= htmlspecialchars($r['nom_usuari'])?>
+                    <?php endforeach; ?>
+                </td>
+                <td>
+                    <?php foreach ($ranking as $r): ?>
+                        <?= htmlspecialchars($r['puntuacio'])?>
+                    <?php endforeach; ?>
+                </td>
+            </tr>
+        </table>
         <?php foreach ($ranking as $r): ?>
             <?= htmlspecialchars($r['id'])?>
         <?php endforeach; ?>

@@ -20,14 +20,15 @@ $ranking = getRanking($pdo);
     <link rel="stylesheet" href="./assets/index.style.css">
 </head>
 <body>
-     <div class="home">
+    <?php include 'header.php'; ?>
+    <div class="home">
         <div class="identity">
             <img width="80px" src="./assets/helmet.png" alt="">
             <h1>Spartanos</h1>
         </div>
         <br>
         <h2>Los 5 mejores jugadores</h2>
-        <table>
+        <table style="border:solid 1px black;">
             <tr>
                 <th>Juego</th>
                 <th>Usuario</th>
@@ -36,24 +37,22 @@ $ranking = getRanking($pdo);
             <tr>
                 <td>
                     <?php foreach ($ranking as $r): ?>
-                        <?= htmlspecialchars($r['nom_joc'])?>
+                        <?= htmlspecialchars($r['nom_joc'])?> <br>
                     <?php endforeach; ?>
                 </td>
                 <td>
                     <?php foreach ($ranking as $r): ?>
-                        <?= htmlspecialchars($r['nom_usuari'])?>
+                        <?= htmlspecialchars($r['nom_usuari'])?><br>
                     <?php endforeach; ?>
                 </td>
                 <td>
                     <?php foreach ($ranking as $r): ?>
-                        <?= htmlspecialchars($r['puntuacio'])?>
+                        <?= htmlspecialchars($r['puntuacio_maxima'])?> <br>
                     <?php endforeach; ?>
                 </td>
             </tr>
         </table>
-        <?php foreach ($ranking as $r): ?>
-            <?= htmlspecialchars($r['id'])?>
-        <?php endforeach; ?>
+
     </div>
 </body>
 </html>

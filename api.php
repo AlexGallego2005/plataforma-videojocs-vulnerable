@@ -54,6 +54,11 @@ if ($method === 'POST' && str_contains($uri, 'jocs')) {
     exit;
 }
 
+$input = json_decode(file_get_contents('php://input'), true);
+if (!$input) {
+    $input = $_POST;
+}
+
 if (!isset($input['action'])) {
     echo json_encode(['success' => false, 'message' => 'Acció no especificada']);
     exit;

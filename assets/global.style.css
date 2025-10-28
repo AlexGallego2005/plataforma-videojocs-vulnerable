@@ -12,7 +12,7 @@ body {
   height: 100vh;
   font-family: "Poppins", system-ui, sans-serif;
   /*background: var(--bg-gradient);*/
-  background-image: linear-gradient(to bottom, #00000077, #000000bb), url(./image.png);
+  background-image: linear-gradient(to bottom, #00000077, #000000bb), url(./bckgnd.png);
   background-size: cover;
   background-position: center;
   color: var(--text-light);
@@ -61,4 +61,8 @@ h1, button {
 a {
   color: white;
   text-decoration: none;
+}
+
+ul {
+  list-style-type: none;
 }

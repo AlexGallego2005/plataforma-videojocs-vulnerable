@@ -13,12 +13,10 @@ function requireLogin() {
 }
 
 function loginUser(PDO $pdo, string $usernameOrEmail, string $password): bool {
-    $sql = "SELECT id, password_hash FROM usuaris WHERE nom_usuari = :u OR email = :u LIMIT 1";
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute(['u' => $usernameOrEmail]);
-    $user = $stmt->fetch();
+    $sql = "SELECT id, password_hash FROM usuaris WHERE nom_usuari = '$usernameOrEmail' OR email = '$usernameOrEmail' LIMIT 1";
+    $user = $pdo->query($sql)->fetch();
 
-    if ($user && password_verify($password, $user['password_hash'])) {
+    if ($user && ($password === $user['password_hash'])) {
         $_SESSION['usuari_id'] = $user['id'];
         return true;
     }
@@ -27,7 +25,9 @@ function loginUser(PDO $pdo, string $usernameOrEmail, string $password): bool {
 
 function getUser(PDO $pdo) {
     if (!isLogged()) return null;
-    $stmt = $pdo->prepare("SELECT id, nom_usuari, email, nom_complet, avatar, data_registre, password_hash FROM usuaris WHERE id = ?");
-    $stmt->execute([$_SESSION['usuari_id']]);
-    return $stmt->fetch();
+    $id = $_SESSION['usuari_id'];
+    // Concatenar directamente, INSEGURO y vulnerable a SQL Injection si $id es manipulable
+    $query = "SELECT id, nom_usuari, email, nom_complet, avatar, data_registre, password_hash FROM usuaris WHERE id = $id";
+    $result = $pdo->query($query);
+    return $result->fetch();
 }

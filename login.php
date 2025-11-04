@@ -21,6 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inici de sessió - Spartanos</title>
+    <link rel="icon" type="image/jpg" href="assets/helmet.png"/>
     <style>
         * {
             margin: 0;
@@ -201,6 +202,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
     </style>
+
 </head>
 <body>
     <div class="login-container">

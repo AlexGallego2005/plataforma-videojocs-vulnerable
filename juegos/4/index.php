@@ -16,6 +16,7 @@ $nivells = function_exists('getGameLevels') ? getGameLevels($joc_id) : [];
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Pong - Niveles dinámicos</title>
+<link rel="icon" type="image/jpg" href="assets/helmet.png"/>
 <style>
 :root{--bg:#0b1220;--card:#0f1724;--accent:#58a6ff;--muted:#9aa7b2}
 *{box-sizing:border-box}

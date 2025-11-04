@@ -41,15 +41,15 @@ if ($method === 'POST' && str_contains($uri, 'jocs')) {
     }
     $nom = trim($body['nom_joc'] ?? '');
     if (!$nom) { http_response_code(400); echo json_encode(['ok'=>false,'error'=>'nom_joc_requerit']); exit; }
-    $stmt = $pdo->prepare("INSERT INTO jocs (nom_joc, descripcio, puntuacio_maxima, nivells_totals, actiu)
-                           VALUES (:n, :d, :p, :niv, :a)");
-    $stmt->execute([
-        'n'=>$nom,
-        'd'=>$body['descripcio']??'',
-        'p'=>$body['puntuacio_maxima']??0,
-        'niv'=>$body['nivells_totals']??1,
-        'a'=>true
-    ]);
+    $nom = $_POST['nom_joc'];
+    $descripcio = $_POST['descripcio'] ?? '';
+    $puntuacio_maxima = $_POST['puntuacio_maxima'] ?? 0;
+    $nivells_totals = $_POST['nivells_totals'] ?? 1;
+    $actiu = 1;
+
+    $query = "INSERT INTO jocs (nom_joc, descripcio, puntuacio_maxima, nivells_totals, actiu)
+            VALUES ('$nom', '$descripcio', $puntuacio_maxima, $nivells_totals, $actiu)";
+    $pdo->query($query);
     echo json_encode(['ok'=>true, 'id'=>$pdo->lastInsertId()]);
     exit;
 }

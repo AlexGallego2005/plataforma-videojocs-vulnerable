@@ -5,8 +5,8 @@ function getAllJocs(PDO $pdo): array {
 }
 
 function getJoc(PDO $pdo, int $id) {
-    $stmt = $pdo->prepare("SELECT * FROM jocs WHERE id = ?");
-    $stmt->execute([$id]);
+    $query = "SELECT * FROM jocs WHERE id = $id";
+    $stmt = $pdo->query($query);
     return $stmt->fetch();
 }
 
@@ -17,9 +17,9 @@ require_once __DIR__ . '/db.php'; // Conexión PDO definida en db.php
  */
 function getGameById($joc_id) {
     global $pdo;
-    $stmt = $pdo->prepare("SELECT * FROM jocs WHERE id = ? AND actiu = TRUE");
-    $stmt->execute([$joc_id]);
-    return $stmt->fetch(PDO::FETCH_ASSOC);
+    $query = "SELECT * FROM jocs WHERE id = $joc_id AND actiu = TRUE";
+    $result = $pdo->query($query);
+    return $result->fetch(PDO::FETCH_ASSOC);
 }
 
 /**
@@ -27,9 +27,9 @@ function getGameById($joc_id) {
  */
 function getGameLevels($joc_id) {
     global $pdo;
-    $stmt = $pdo->prepare("SELECT * FROM nivells_joc WHERE joc_id = ? ORDER BY nivell ASC");
-    $stmt->execute([$joc_id]);
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $query = "SELECT * FROM nivells_joc WHERE joc_id = $joc_id ORDER BY nivell ASC";
+    $result = $pdo->query($query);
+    return $result->fetchAll(PDO::FETCH_ASSOC);
 }
 
 /**
@@ -37,9 +37,9 @@ function getGameLevels($joc_id) {
  */
 function getGameLevel($joc_id, $nivell) {
     global $pdo;
-    $stmt = $pdo->prepare("SELECT * FROM nivells_joc WHERE joc_id = ? AND nivell = ? LIMIT 1");
-    $stmt->execute([$joc_id, $nivell]);
-    return $stmt->fetch(PDO::FETCH_ASSOC);
+    $query = "SELECT * FROM nivells_joc WHERE joc_id = $joc_id AND nivell = $nivell LIMIT 1";
+    $result = $pdo->query($query);
+    return $result->fetch(PDO::FETCH_ASSOC);
 }
 
 
@@ -48,9 +48,9 @@ function getGameLevel($joc_id, $nivell) {
  */
 function getUserProgress($usuari_id, $joc_id) {
     global $pdo;
-    $stmt = $pdo->prepare("SELECT * FROM progres_usuari WHERE usuari_id = ? AND joc_id = ?");
-    $stmt->execute([$usuari_id, $joc_id]);
-    return $stmt->fetch(PDO::FETCH_ASSOC);
+    $query = "SELECT * FROM progres_usuari WHERE usuari_id = $usuari_id AND joc_id = $joc_id";
+    $result = $pdo->query($query);
+    return $result->fetch(PDO::FETCH_ASSOC);
 }
 
 /**
@@ -58,12 +58,10 @@ function getUserProgress($usuari_id, $joc_id) {
  */
 function createUserProgress($usuari_id, $joc_id) {
     global $pdo;
-    $stmt = $pdo->prepare("
-        INSERT INTO progres_usuari 
+    $query = "INSERT INTO progres_usuari 
         (usuari_id, joc_id, nivell_actual, puntuacio_maxima, partides_jugades, ultima_partida)
-        VALUES (?, ?, 1, 0, 0, NOW())
-    ");
-    return $stmt->execute([$usuari_id, $joc_id]);
+        VALUES ($usuari_id, $joc_id, 1, 0, 0, NOW())";
+    return $pdo->query($query);
 }
 
 /**
@@ -71,12 +69,10 @@ function createUserProgress($usuari_id, $joc_id) {
  */
 function saveGameMatch($usuari_id, $joc_id, $nivell, $puntuacio, $durada) {
     global $pdo;
-    $stmt = $pdo->prepare("
-        INSERT INTO partides 
-        (usuari_id, joc_id, nivell_jugat, puntuacio_obtinguda, data_partida, durada_segons)
-        VALUES (?, ?, ?, ?, NOW(), ?)
-    ");
-    $stmt->execute([$usuari_id, $joc_id, $nivell, $puntuacio, $durada]);
+    $query = "INSERT INTO partides 
+              (usuari_id, joc_id, nivell_jugat, puntuacio_obtinguda, data_partida, durada_segons)
+              VALUES ($usuari_id, $joc_id, $nivell, $puntuacio, NOW(), $durada)";
+    $pdo->query($query);
     return $pdo->lastInsertId();
 }
 
@@ -96,9 +92,9 @@ function updateUserProgress($usuari_id, $joc_id, $nivell_jugat, $puntuacio, $gua
     $nou_nivell_actual = $progres['nivell_actual'];
 
     if ($guanyat && $nivell_jugat == $progres['nivell_actual']) {
-        $stmt = $pdo->prepare("SELECT COUNT(*) AS total FROM nivells_joc WHERE joc_id = ?");
-        $stmt->execute([$joc_id]);
-        $total_nivells = $stmt->fetchColumn();
+        $query = "SELECT COUNT(*) AS total FROM nivells_joc WHERE joc_id = $joc_id";
+        $result = $pdo->query($query);
+        $total_nivells = $result->fetchColumn();
 
         if ($nivell_jugat < $total_nivells) {
             $nou_nivell_actual = $nivell_jugat + 1;
@@ -107,12 +103,13 @@ function updateUserProgress($usuari_id, $joc_id, $nivell_jugat, $puntuacio, $gua
 
     $partides_jugades = $progres['partides_jugades'] + 1;
 
-    $stmt = $pdo->prepare("
-        UPDATE progres_usuari
-        SET nivell_actual = ?, puntuacio_maxima = ?, partides_jugades = ?, ultima_partida = NOW()
-        WHERE usuari_id = ? AND joc_id = ?
-    ");
-    return $stmt->execute([$nou_nivell_actual, $nova_puntuacio_maxima, $partides_jugades, $usuari_id, $joc_id]);
+    $query = "UPDATE progres_usuari
+        SET nivell_actual = $nou_nivell_actual,
+            puntuacio_maxima = $nova_puntuacio_maxima,
+            partides_jugades = $partides_jugades,
+            ultima_partida = NOW()
+        WHERE usuari_id = $usuari_id AND joc_id = $joc_id";
+    return $pdo->query($query);
 }
 
 /**
@@ -120,59 +117,55 @@ function updateUserProgress($usuari_id, $joc_id, $nivell_jugat, $puntuacio, $gua
  */
 function getGameStats($usuari_id, $joc_id) {
     global $pdo;
-    $stmt = $pdo->prepare("
-        SELECT 
-            COUNT(*) AS total_partides,
-            MAX(puntuacio_obtinguda) AS millor_puntuacio,
-            AVG(puntuacio_obtinguda) AS puntuacio_mitjana,
-            SUM(durada_segons) AS temps_total,
-            MAX(nivell_jugat) AS nivell_maxim
-        FROM partides
-        WHERE usuari_id = ? AND joc_id = ?
-    ");
-    $stmt->execute([$usuari_id, $joc_id]);
-    return $stmt->fetch(PDO::FETCH_ASSOC);
+    $query = "SELECT 
+                COUNT(*) AS total_partides,
+                MAX(puntuacio_obtinguda) AS millor_puntuacio,
+                AVG(puntuacio_obtinguda) AS puntuacio_mitjana,
+                SUM(durada_segons) AS temps_total,
+                MAX(nivell_jugat) AS nivell_maxim
+              FROM partides
+              WHERE usuari_id = $usuari_id AND joc_id = $joc_id";
+    $result = $pdo->query($query);
+    return $result->fetch(PDO::FETCH_ASSOC);
 }
+
 
 /**
  * Obtener ranking de jugadores para un juego
  */
 function getGameRanking($joc_id, $limit = 10) {
     global $pdo;
-    $stmt = $pdo->prepare("
-        SELECT 
-            u.nom_usuari,
-            p.puntuacio_maxima,
-            p.nivell_actual,
-            p.partides_jugades,
-            u.avatar
-        FROM progres_usuari p
-        INNER JOIN usuaris u ON p.usuari_id = u.id
-        WHERE p.joc_id = ?
-        ORDER BY p.puntuacio_maxima DESC, p.nivell_actual DESC
-        LIMIT ?
-    ");
-    $stmt->execute([$joc_id, $limit]);
+    $query = "SELECT 
+                u.nom_usuari,
+                p.puntuacio_maxima,
+                p.nivell_actual,
+                p.partides_jugades,
+                u.avatar
+              FROM progres_usuari p
+              INNER JOIN usuaris u ON p.usuari_id = u.id
+              WHERE p.joc_id = $joc_id
+              ORDER BY p.puntuacio_maxima DESC, p.nivell_actual DESC
+              LIMIT $limit";
+    $stmt = $pdo->query($query);
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+
 
 /**
  * Obtener últimas partidas de un usuario
  */
 function getRecentMatches($usuari_id, $joc_id, $limit = 5) {
     global $pdo;
-    $stmt = $pdo->prepare("
-        SELECT 
-            nivell_jugat,
-            puntuacio_obtinguda,
-            data_partida,
-            durada_segons
-        FROM partides
-        WHERE usuari_id = ? AND joc_id = ?
-        ORDER BY data_partida DESC
-        LIMIT ?
-    ");
-    $stmt->execute([$usuari_id, $joc_id, $limit]);
+    $query = "SELECT 
+                nivell_jugat,
+                puntuacio_obtinguda,
+                data_partida,
+                durada_segons
+              FROM partides
+              WHERE usuari_id = $usuari_id AND joc_id = $joc_id
+              ORDER BY data_partida DESC
+              LIMIT $limit";
+    $stmt = $pdo->query($query);
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
@@ -180,17 +173,18 @@ function getRecentMatches($usuari_id, $joc_id, $limit = 5) {
  * Obtener Ranking
  */
 function getRanking($pdo, $joc_id = null, $limit = 5) {
-
-    $stmt = $pdo->prepare("
-    SELECT joc_id, nom_joc, progres_usuari.puntuacio_maxima, nom_usuari 
-    FROM jocs 
-    JOIN progres_usuari ON jocs.id = progres_usuari.joc_id 
-    JOIN usuaris ON progres_usuari.usuari_id = usuaris.id 
-    WHERE progres_usuari.puntuacio_maxima > 0 
-    ORDER BY joc_id, puntuacio_maxima DESC;");
-    $stmt->execute();
+    $query = "
+        SELECT joc_id, nom_joc, progres_usuari.puntuacio_maxima, nom_usuari 
+        FROM jocs 
+        JOIN progres_usuari ON jocs.id = progres_usuari.joc_id 
+        JOIN usuaris ON progres_usuari.usuari_id = usuaris.id 
+        WHERE progres_usuari.puntuacio_maxima > 0 
+        ORDER BY joc_id, puntuacio_maxima DESC
+    ";
+    $stmt = $pdo->query($query);
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+
 
 /**
  * Actualizar Max Score
@@ -198,10 +192,13 @@ function getRanking($pdo, $joc_id = null, $limit = 5) {
 
 function updateUserMaxScore($usuari_id, $joc_id, $points)
 {
-    global $pdo; // o el objeto de conexión que uses
-    $stmt = $pdo->prepare("UPDATE progres_usuari SET puntuacio_maxima = ? WHERE usuari_id = ? AND joc_id = ?");
-    $stmt->execute([$points, $usuari_id, $joc_id]);
+    global $pdo;
+    $query = "UPDATE progres_usuari 
+              SET puntuacio_maxima = $points 
+              WHERE usuari_id = $usuari_id AND joc_id = $joc_id";
+    $pdo->query($query);
 }
+
 
 
 ?>

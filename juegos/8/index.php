@@ -25,6 +25,7 @@ if (function_exists('getGameLevels')) {
 <meta charset="utf-8">
 <title>Pixel Runner</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" type="image/jpg" href="assets/helmet.png"/>
 <style>
 body {
   margin: 0; 

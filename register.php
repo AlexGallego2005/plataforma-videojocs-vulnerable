@@ -16,20 +16,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) $errors[] = 'Email invàlid.';
 
     if (empty($errors)) {
-        // Comprovar duplicats
-        $stmt = $pdo->prepare("SELECT id FROM usuaris WHERE nom_usuari = :u OR email = :e LIMIT 1");
-        $stmt->execute(['u'=>$nom_usuari,'e'=>$email]);
-        if ($stmt->fetch()) {
-            $errors[] = "Nom d'usuari o email ja registrat.";
-        } else {
-            $hash = password_hash($pass, PASSWORD_DEFAULT);
-            $ins = $pdo->prepare("INSERT INTO usuaris (nom_usuari,email,password_hash,nom_complet) VALUES (:u,:e,:p,:n)");
-            $ins->execute(['u'=>$nom_usuari,'e'=>$email,'p'=>$hash,'n'=>$nom_complet]);
-            $_SESSION['usuari_id'] = $pdo->lastInsertId();
-            header('Location: /games.php');
-            exit;
-        }
+    // Comprobar duplicados de forma insegura
+    $query = "SELECT id FROM usuaris WHERE nom_usuari = '$nom_usuari' OR email = '$email' LIMIT 1";
+    $result = $pdo->query($query);
+    if ($result->fetch()) {
+        $errors[] = "Nom d'usuari o email ja registrat.";
+    } else {
+        // Insertar sin usar prepared statements ni escape
+        $queryInsert = "INSERT INTO usuaris (nom_usuari, email, password_hash, nom_complet) 
+                        VALUES ('$nom_usuari', '$email', '$pass', '$nom_complet')";
+        $pdo->exec($queryInsert);
+        $_SESSION['usuari_id'] = $pdo->lastInsertId();
+        header('Location: /games.php');
+        exit;
     }
+}
+
 }
 ?>
 <!doctype html>
@@ -38,6 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registre - Spartanos</title>
+    <link rel="icon" type="image/jpg" href="assets/helmet.png"/>
     <style>
         * {
             margin: 0;

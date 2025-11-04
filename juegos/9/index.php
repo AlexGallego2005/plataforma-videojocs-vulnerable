@@ -25,6 +25,7 @@ if (function_exists('getGameLevels')) {
 <meta charset="utf-8">
 <title>Neon Snake</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" type="image/jpg" href="assets/helmet.png"/>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
 
@@ -161,21 +162,6 @@ canvas {
   border: 1px solid rgba(0, 255, 136, 0.2);
   text-align: center;
 }
-
-.score-display {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  background: rgba(0, 0, 0, 0.7);
-  padding: 15px 25px;
-  border-radius: 10px;
-  border: 2px solid #00ff88;
-  font-size: 20px;
-  font-weight: 700;
-  color: #00ff88;
-  text-shadow: 0 0 10px rgba(0, 255, 136, 0.8);
-  box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
-}
 </style>
 </head>
 <body>
@@ -237,8 +223,6 @@ let state = {
   foodEaten: 0,
   targetScore: 0
 };
-
-let keys = { left: false, right: false, up: false, down: false };
 
 // Cargar configuraciones dinámicas de niveles
 const LEVELS = {};
@@ -546,28 +530,29 @@ function startGame() {
   }
   resetGame();
   state.running = true;
-  state.lastUpdate = Date.now();
+  state.lastUpdate = performance.now();
   requestAnimationFrame(update);
 }
 
-// Controles
+// Controles - CORREGIDO
 window.addEventListener("keydown", e => {
   if (!state.running) return;
   
+  // Prevenir movimiento opuesto a la dirección actual
   if (e.key === "ArrowLeft" && state.direction.x === 0) {
     state.nextDirection = { x: -1, y: 0 };
     e.preventDefault();
   }
-  if (e.key === "ArrowRight" && state.direction.x === 0) {
+  else if (e.key === "ArrowRight" && state.direction.x === 0) {
     state.nextDirection = { x: 1, y: 0 };
     e.preventDefault();
   }
-  if (e.key === "ArrowUp" && state.direction.y === 0) {
+  else if (e.key === "ArrowUp" && state.direction.y === 0) {
     state.nextDirection = { x: 0, y: -1 };
     e.preventDefault();
   }
-  if (e.key === "ArrowDown" && state.direction.y === 0) {
-    state.nextDirection = { x: 0, y: -1 };
+  else if (e.key === "ArrowDown" && state.direction.y === 0) {
+    state.nextDirection = { x: 0, y: 1 };
     e.preventDefault();
   }
 });

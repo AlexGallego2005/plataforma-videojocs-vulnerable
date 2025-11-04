@@ -25,6 +25,7 @@ if (function_exists('getGameLevels')) {
 <meta charset="utf-8">
 <title>Space Blaster</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" type="image/jpg" href="assets/helmet.png"/>
 <style>
 :root {
   --bg: #050b1a;

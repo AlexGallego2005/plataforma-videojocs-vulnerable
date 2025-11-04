@@ -15,6 +15,7 @@ $jocs = getAllJocs($pdo);
   <title>Llista de jocs</title>
   <link rel="stylesheet" href="./assets/global.style.css">
   <link rel="stylesheet" href="./assets/games.style.css">
+  <link rel="icon" type="image/jpg" href="assets/helmet.png"/>
 </head>
 
 <body>

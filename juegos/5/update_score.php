@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once '../../secret/games_model.php';
+require_once '../../api/games_model.php';
 
 if (!isset($_SESSION['usuari_id'])) {
     http_response_code(401);

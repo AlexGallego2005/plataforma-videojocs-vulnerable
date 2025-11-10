@@ -1,10 +1,10 @@
 <?php
 session_start();
-require_once '../../secret/games_model.php';
+require_once '../../api/games_model.php';
 
 // Verificar si el usuario está logueado
 if (!isset($_SESSION['usuari_id'])) {
-    header('Location: ../../login.php');
+    header('Location: /login.php');
     exit();
 }
 

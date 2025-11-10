@@ -1,8 +1,8 @@
 <?php
 session_start();
 
-if (file_exists(__DIR__ . '/../../secret/games_model.php')) {
-    require_once __DIR__ . '/../../secret/games_model.php';
+if (file_exists(__DIR__ . '/../../api/games_model.php')) {
+    require_once __DIR__ . '/../../api/games_model.php';
 }
 
 $usuari_id = $_SESSION['usuari_id'] ?? null;
@@ -188,7 +188,7 @@ function startMatch(){
 function showEnd(won,puntos,nivel,duracion){
   msgEl.textContent = won ? `Has ganado el nivel ${nivel}` : `Has perdido el nivel ${nivel}`;
   if(usuari_id&&joc_id){
-    fetch('../../api.php',{method:'POST',headers:{'Content-Type':'application/json'},
+    fetch('/api/api.php',{method:'POST',headers:{'Content-Type':'application/json'},
       body:JSON.stringify({action:'save_game',usuari_id,joc_id,nivell:nivel,puntuacio:puntos,durada:duracion,guanyat:won?1:0})})
     .then(r=>r.json()).then(d=>{
       if(d.success){msgEl.textContent+=' — Partida guardada.';}

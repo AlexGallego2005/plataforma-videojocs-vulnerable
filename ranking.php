@@ -1,7 +1,7 @@
 <?php
-require_once __DIR__ . '/secret/db.php';
-require_once __DIR__ . '/secret/auth.php';
-require_once __DIR__ . '/secret/games_model.php';
+require_once __DIR__ . '/config/db.php';
+require_once __DIR__ . '/api/auth.php';
+require_once __DIR__ . '/api/games_model.php';
 
 requireLogin();
 $usuari = getUser($pdo);
@@ -15,15 +15,15 @@ $ranking = getRanking($pdo);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="icon" type="image/jpg" href="assets/helmet.png"/>
-    <link rel="stylesheet" href="./assets/global.style.css">
-    <link rel="stylesheet" href="./assets/games.style.css">
-    <link rel="stylesheet" href="./assets/index.style.css">
+    <link rel="stylesheet" href="/assets/css/global.style.css">
+    <link rel="stylesheet" href="/assets/css/games.style.css">
+    <link rel="stylesheet" href="/assets/css/index.style.css">
 </head>
 <body>
-    <?php include 'header.php'; ?>
+    <?php include 'partials/header.php'; ?>
     <div class="home">
         <div class="identity">
-            <img width="80px" src="./assets/helmet.png" alt="">
+            <img width="80px" src="/assets/images/helmet.png" alt="">
             <h1>Spartanos</h1>
         </div>
         <br>

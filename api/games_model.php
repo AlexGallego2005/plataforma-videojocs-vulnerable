@@ -10,7 +10,7 @@ function getJoc(PDO $pdo, int $id) {
     return $stmt->fetch();
 }
 
-require_once __DIR__ . '/db.php'; // Conexión PDO definida en db.php
+require_once __DIR__ . '/../config/db.php'; // Conexión PDO definida en db.php
 
 /**
  * Obtener información de un juego por ID

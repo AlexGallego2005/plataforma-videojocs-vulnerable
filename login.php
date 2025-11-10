@@ -1,6 +1,6 @@
 <?php
-require_once __DIR__ . '/secret/db.php';
-require_once __DIR__ . '/secret/auth.php';
+require_once __DIR__ . '/config/db.php';
+require_once __DIR__ . '/api/auth.php';
 
 $error = '';
 
@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inici de sessió - Spartanos</title>
-    <link rel="icon" type="image/jpg" href="assets/helmet.png"/>
+    <link rel="icon" type="image/jpg" href="/assets/images/helmet.png"/>
     <style>
         * {
             margin: 0;
@@ -207,7 +207,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
     <div class="login-container">
         <div class="identity">
-            <img src="./assets/helmet.png" alt="Spartanos">
+            <img src="/assets/images/helmet.png" alt="Spartanos">
             <h1>Spartanos</h1>
         </div>
         

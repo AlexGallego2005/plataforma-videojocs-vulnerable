@@ -1,6 +1,6 @@
 <?php
-require_once __DIR__ . '/secret/db.php';
-require_once __DIR__ . '/secret/auth.php';
+require_once __DIR__ . '/config/db.php';
+require_once __DIR__ . '/api/auth.php';
 
 $errors = [];
 

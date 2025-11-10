@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Verificar errores
         if ($file['error'] === UPLOAD_ERR_OK) {
             // Crear directorio si no existe
-            $uploadDir = __DIR__ . '/uploads/avatars/';
+            $uploadDir = __DIR__ . '/assets/uploads/avatars/';
             if (!is_dir($uploadDir)) {
                 mkdir($uploadDir, 0755, true);
             }
@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Mover el archivo
             if (move_uploaded_file($file['tmp_name'], $filePath)) {
                 // Guardar en la base de datos
-                $relativePath = '/uploads/avatars/' . $fileName;
+                $relativePath = '/assets/uploads/avatars/' . $fileName;
                 $stmt = $pdo->prepare("UPDATE usuaris SET avatar = ? WHERE id = ?");
                 $stmt->execute([$relativePath, $userId]);
 
@@ -109,8 +109,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php $usuari['nom_usuari'] ?></title>
     
-    <link rel="stylesheet" href="./assets/global.style.css">
-    <link rel="stylesheet" href="./assets/index.style.css">
+    <link rel="stylesheet" href="/assets/css/global.style.css">
+    <link rel="stylesheet" href="/assets/css/index.style.css">
     <style>
         /* Estilos básicos para el nuevo formulario */
         .profile-form {
@@ -138,10 +138,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </style>
 </head>
 <body>
-    <?php include 'header.php'; ?>
+    <?php include '/partials/header.php'; ?>
     <div class="home">
         <div class="user-identity">
-            <img id="avatarImg" width="120px" height="120px" src="<?php echo $usuari['avatar'] ?? './assets/helmet.png' ?>" alt="Avatar del usuario" style="border-radius:50%; cursor: pointer;">
+            <img id="avatarImg" width="120px" height="120px" src="<?php echo $usuari['avatar'] || '/assets/images/helmet.png' ?>" alt="Avatar del usuario" style="border-radius:50%; cursor: pointer;">
             <h1><?= htmlspecialchars($usuari['nom_usuari']) ?></h1>
         </div>
 

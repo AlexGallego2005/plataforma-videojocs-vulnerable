@@ -2,8 +2,8 @@
 session_start();
 
 // Incluimos el modelo si existe
-if (file_exists(__DIR__ . '/../../secret/games_model.php')) {
-    require_once __DIR__ . '/../../secret/games_model.php';
+if (file_exists(__DIR__ . '/../../api/games_model.php')) {
+    require_once __DIR__ . '/../../api/games_model.php';
 }
 
 $usuari_id = $_SESSION['usuari_id'] ?? null;
@@ -501,7 +501,7 @@ function endGame(won, message) {
   const timeElapsed = Math.round((Date.now() - state.startTime) / 1000);
   
   if (usuari_id && joc_id) {
-    fetch("../../api.php", {
+    fetch("/api/api.php", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

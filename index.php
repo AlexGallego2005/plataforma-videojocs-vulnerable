@@ -1,6 +1,6 @@
 <?php
-require_once __DIR__ . '/secret/db.php';
-require_once __DIR__ . '/secret/auth.php';
+require_once __DIR__ . '/config/db.php';
+require_once __DIR__ . '/api/auth.php';
 
 ?>
 <!DOCTYPE html>
@@ -9,14 +9,14 @@ require_once __DIR__ . '/secret/auth.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Spartanos</title>
-    <link rel="icon" type="image/jpg" href="assets/helmet.png"/>
-    <link rel="stylesheet" href="./assets/global.style.css">
-    <link rel="stylesheet" href="./assets/index.style.css">
+    <link rel="icon" type="image/jpg" href="assets/images/helmet.png"/>
+    <link rel="stylesheet" href="/assets/css/global.style.css">
+    <link rel="stylesheet" href="/assets/css/index.style.css">
 </head>
 <body>
     <div class="home">
         <div class="identity">
-            <img width="80px" src="./assets/helmet.png" alt="">
+            <img width="80px" src="/assets/images/helmet.png" alt="">
             <h1>Spartanos</h1>
         </div>
         <br><br>

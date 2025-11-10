@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Memory Game - Inseguro Edition 😈</title>
-    <link rel="icon" type="image/jpg" href="assets/helmet.png"/>
+    <link rel="icon" type="image/png" href="/assets/images/helmet.png"/>
     <style>
         * {
             margin: 0;

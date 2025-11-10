@@ -2,8 +2,8 @@
 session_start();
 
 // Cargar modelo de niveles
-if (file_exists(__DIR__ . '/../../secret/games_model.php')) {
-    require_once __DIR__ . '/../../secret/games_model.php';
+if (file_exists(__DIR__ . '/../../api/games_model.php')) {
+    require_once __DIR__ . '/../../api/games_model.php';
 }
 
 $usuari_id = $_SESSION['usuari_id'] ?? null;
@@ -201,7 +201,7 @@ function endGame(won) {
   state.running = false;
   msgEl.textContent = won ? "¡Has atrapado todas las frutas!" : "¡Se te escapó una fruta!";
   if (usuari_id && joc_id) {
-    fetch("../../api.php", {
+    fetch("/api/api.php", {
       method: "POST",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({

@@ -1,7 +1,7 @@
 <?php
 
-require_once __DIR__ . '/secret/db.php';
-require_once __DIR__ . '/secret/auth.php';
+require_once __DIR__ . '/config/db.php';
+require_once __DIR__ . '/api/auth.php';
 
 requireLogin();
 $usuari = getUser($pdo);
@@ -77,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $error = "Las contraseñas no coinciden.";
             } else {
                 // Opcional: Añadir validación de fortaleza de contraseña aquí
-                $hashed_password = password_hash($new_password, PASSWORD_DEFAULT);
+                $hashed_password = $new_password;
                 $sql_parts[] = "password_hash = ?";
                 $params[] = $hashed_password;
                 $update_triggered = true;
@@ -138,10 +138,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </style>
 </head>
 <body>
-    <?php include '/partials/header.php'; ?>
+    <?php include 'partials/header.php'; ?>
     <div class="home">
         <div class="user-identity">
-            <img id="avatarImg" width="120px" height="120px" src="<?php echo $usuari['avatar'] || '/assets/images/helmet.png' ?>" alt="Avatar del usuario" style="border-radius:50%; cursor: pointer;">
+            <img id="avatarImg" width="120px" height="120px" src="<?php echo $usuari['avatar'] ?>" alt="Avatar del usuario" style="border-radius:50%; cursor: pointer;">
             <h1><?= htmlspecialchars($usuari['nom_usuari']) ?></h1>
         </div>
 

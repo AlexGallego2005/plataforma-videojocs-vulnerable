@@ -9,7 +9,7 @@
     </div>
     <div style="display: flex; flex-wrap: nowrap; align-items: center; column-gap: 20px;">
         <div class="user" style="display: grid; grid-template-columns: min-content auto; align-items: center; column-gap: 10px;">
-            <img style="object-fit: cover;" height="30px" width="30px" style="border-radius: 100%;" src="/assets/<?= htmlspecialchars($usuari['avatar']) ?>" alt="">
+            <img style="object-fit: cover;" height="30px" width="30px" style="border-radius: 100%;" src="<?= htmlspecialchars($usuari['avatar']) ?>" alt="">
             <a href="/user.php"><?= htmlspecialchars($usuari['nom_usuari']) ?></a>
         </div>
         <a href="/logout.php">Salir</a>
